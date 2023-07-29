@@ -1,4 +1,4 @@
-import * as todo from './todo/controller.js';
-import * as user from './user/controller.js';
+import * as flightDetails from './flightDetails/controller.js';
+import * as admin from './admin/controller.js';
 
-export { todo, user };
+export { flightDetails, admin };

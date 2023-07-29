@@ -1,16 +1,16 @@
 'use strict';
 import { DataTypes, Model } from 'sequelize';
 
-const todo = (sequelize, DataTypes) => {
-  class todo extends Model {
-    static associate(models) {
-      todo.belongsTo(models.user, {
-        foreignKey: 'user_id'
-      });
-    }
+const flightDetail = (sequelize, DataTypes) => {
+  class flightDetail extends Model {
+    // static associate(models) {
+    //   flightDetail.belongsTo(models.user, {
+    //     foreignKey: 'user_id'
+    //   });
+    // }
   }
 
-  todo.init(
+  flightDetail.init(
     {
       task: {
         type: DataTypes.STRING,
@@ -25,16 +25,16 @@ const todo = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'todo',
-      tableName: 'todos',
+      modelName: 'flightDetail',
+      tableName: 'flightDetails',
       createdAt: 'created_on',
       updatedAt: 'updated_on'
     }
   );
-  return todo;
+  return flightDetail;
 };
 
-export default todo;
+export default flightDetail;
 
 //     task: data.task,
 //     status: data.status,

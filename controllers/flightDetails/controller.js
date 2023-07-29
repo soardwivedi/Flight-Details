@@ -1,11 +1,11 @@
 import { response } from 'express';
 import models from '../../models/index.js';
-const todoModel = models.todo;
+const flightDetailModel = models.flightDetail;
 
-// const addTodo = async (request, response){
+// const addFlightDetail = async (request, response){
 //   try{
 //     const data = request.body;
-//     await todoModel.create({
+//     await flightDetailModel.create({
 //       task: data.task,
 //       status: data.status,
 //       description: data.description,
@@ -14,36 +14,36 @@ const todoModel = models.todo;
 //   } catch (error){
 //     console.log('error', error);
 //     response.status(500).send({
-//       message: 'Something went wrong while saving todo.'
+//       message: 'Something went wrong while saving flightDetail.'
 //     });
 //   }
 // }
 
-const addTodo = async (request, response) => {
+const addFlightDetail = async (request, response) => {
   try {
     const data = request.body;
-    await todoModel.create({
+    await flightDetailModel.create({
       task: data.task,
       status: data.status,
       description: data.description,
       user_id: request.user.id
     });
     response.send({
-      message: 'Todo created successfully.'
+      message: 'Flight Detail created successfully.'
     });
   } catch (error) {
     console.log('error', error);
     response.status(500).send({
-      message: 'Something went wrong while saving todo.'
+      message: 'Something went wrong while saving flight detail.'
     });
   }
 };
 
-const updateTodo = async (req, res) => {
+const updateFlightDetail = async (req, res) => {
   try {
     const updateData = req.body;
     const id = req.params.id;
-    await todoModel.update(
+    await flightDetailModel.update(
       {
         task: updateData.task,
         status: updateData.status,
@@ -54,11 +54,11 @@ const updateTodo = async (req, res) => {
     );
 
     res.send({
-      message: 'todo updated successfully.'
+      message: 'Flight Detail updated successfully.'
     });
   } catch (error) {
     res.status(500).send({
-      message: 'An error occured while updating todo.'
+      message: 'An error occured while updating Flight Detail.'
     });
   }
 };
@@ -70,35 +70,35 @@ const orderBy = async (req, res) => {
       limit = parseInt(req.query.limit);
     }
 
-    const todos = await todoModel.findAll({
+    const flightDetails = await flightDetailModel.findAll({
       // order: [[orderBy, limit]],
       // key: [column name, order (ASC, DSCE)]
       limit: [limit]
     });
     res.send({
-      message: 'todo fetched successfully',
-      todos
+      message: 'Flight Detail fetched successfully',
+      flightDetails
     });
   } catch (error) {
     res.status(500).send({
-      message: 'An error occured while getting todo.'
+      message: 'An error occured while getting Flight Detail.'
     });
   }
 };
-const deleteTodo = async (req, res) => {
+const deleteFlightDetail = async (req, res) => {
   try {
     const deleteData = req.body;
-    const deleteTodoRow = await todoModel.destroy({
+    const deleteFlightDetailRow = await flightDetailModel.destroy({
       where: { id: deleteData.id }
     });
     res.send({
-      message: 'Todo row deleted successfully.'
+      message: 'Flight Detail row deleted successfully.'
     });
   } catch (error) {
     res.status(500).send({
-      message: 'An error occured while deleting todo.'
+      message: 'An error occured while deleting Flight Detail.'
     });
   }
 };
 
-export { addTodo, updateTodo, orderBy, deleteTodo };
+export { addFlightDetail, updateFlightDetail, orderBy, deleteFlightDetail };

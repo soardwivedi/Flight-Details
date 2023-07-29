@@ -1,6 +1,6 @@
 import yup from 'yup';
 
-const todoAddSchema = yup.object().shape({
+const flightDetailAddSchema = yup.object().shape({
   body: yup.object().shape({
     task: yup
       .string()
@@ -10,4 +10,4 @@ const todoAddSchema = yup.object().shape({
   })
 });
 
-export { todoAddSchema };
+export { flightDetailAddSchema };

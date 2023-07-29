@@ -1,23 +1,33 @@
 import express from 'express';
 const app = express();
-const port = 3001;
+const port = 3002;
 import Yup from 'yup';
 import bodyParser from 'body-parser';
 import * as controllers from './controllers/index.js';
 import { validate } from 'express-yup';
-import { todoAddSchema } from './controllers/todo/validation.js';
+import { flightDetailAddSchema } from './controllers/flightDetails/validation.js';
+import { addFlightDetail } from './controllers/flightDetails/controller.js';
 import {
-  userAddSchema,
-  userLoginSchema,
-  userPasswordUpdateSchema,
-  userRfreshShema
-} from './controllers/user/validation.js';
+  adminAddSchema,
+  adminLoginSchema,
+  adminPasswordUpdateSchema,
+  adminRfreshShema
+} from './controllers/admin/validation.js';
+
+import {
+  addAdmin,
+  adminLogin,
+  logoutAdmin,
+  adminRefresLogin,
+  updatePassword
+} from './controllers/admin/controller.js';
 import models from './models/index.js';
 import auth from './middlewares/auth.js';
 
 // Middleware: For hadling yup validation error
 app.use((error, req, res, next) => {
   if (error instanceof Yup.ValidationError) {
+    console.log("Hi Kjhss");
     res.status(400).json({ message: error.message });
     return;
   }
@@ -27,8 +37,6 @@ app.use((error, req, res, next) => {
 
 // Syncronizing models with database tables
 app.use(bodyParser.json());
-
-// app.use();
 
 // models.sequelize
 //   .sync({ alter: true })
@@ -53,32 +61,49 @@ app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
 
-app.post('/todo', auth, validate(todoAddSchema), controllers.todo.addTodo);
+app.post(
+  '/flightDetail',
+  auth,
+  validate(flightDetailAddSchema),
+  controllers.flightDetails.addFlightDetail
+);
 
 app.put(
-  '/todo/:id',
+  '/flightDetail/:id',
   auth,
-  validate(todoAddSchema),
-  controllers.todo.updateTodo
+  validate(flightDetailAddSchema),
+  controllers.flightDetails.updateFlightDetail
 );
 
-app.get('/todo', auth, controllers.todo.orderBy);
-app.delete('/deleteTodo', auth, controllers.todo.deleteTodo);
+app.get('/flightDetail', auth, controllers.flightDetails.orderBy);
+app.delete(
+  '/deleteflightDetail',
+  auth,
+  controllers.flightDetails.deleteFlightDetail
+);
 
-app.post('/user', validate(userAddSchema), controllers.user.addUser);
-
-app.post('/user/login', validate(userLoginSchema), controllers.user.userLogin);
-app.post('/user/logout', auth, controllers.user.logoutUser);
 app.post(
-  '/user/refresh_token',
-  validate(userRfreshShema),
-  controllers.user.userRefresLogin
+  '/admin/register',
+  validate(adminAddSchema),
+  controllers.admin.addAdmin
+);
+
+app.post(
+  '/admin/login',
+  validate(adminLoginSchema),
+  controllers.admin.adminLogin
+);
+app.post('/admin/logout', auth, controllers.admin.logoutAdmin);
+app.post(
+  '/admin/refresh_token',
+  validate(adminRfreshShema),
+  controllers.admin.adminRefresLogin
 );
 app.post(
-  '/user/updatePassword',
+  '/admin/updatePassword',
   auth,
-  validate(userPasswordUpdateSchema),
-  controllers.user.updatePassword
+  validate(adminPasswordUpdateSchema),
+  controllers.admin.updatePassword
 );
 // Middleware: For hadling yup validation error
 app.use((error, req, res, next) => {

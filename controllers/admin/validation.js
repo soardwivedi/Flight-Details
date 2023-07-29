@@ -1,6 +1,6 @@
 import yup from 'yup';
 
-const userAddSchema = yup.object().shape({
+const adminAddSchema = yup.object().shape({
   body: yup.object().shape({
     name: yup
       .string()
@@ -11,18 +11,18 @@ const userAddSchema = yup.object().shape({
   })
 });
 
-const userLoginSchema = yup.object().shape({
+const adminLoginSchema = yup.object().shape({
   body: yup.object().shape({
     email: yup.string().required('Email is required field.'),
     password: yup.string().required('Password is required.').min(3)
   })
 });
-const userRfreshShema = yup.object().shape({
+const adminRfreshShema = yup.object().shape({
   body: yup.object().shape({
     refresh_token: yup.string().required('Refresh token required.')
   })
 });
-const userPasswordUpdateSchema = yup.object().shape({
+const adminPasswordUpdateSchema = yup.object().shape({
   body: yup.object().shape({
     email: yup.string().required('Email is required field.'),
     oldPassword: yup.string().required('Old Password is require.'),
@@ -33,8 +33,8 @@ const userPasswordUpdateSchema = yup.object().shape({
   })
 });
 export {
-  userAddSchema,
-  userLoginSchema,
-  userRfreshShema,
-  userPasswordUpdateSchema
+  adminAddSchema,
+  adminLoginSchema,
+  adminRfreshShema,
+  adminPasswordUpdateSchema
 };

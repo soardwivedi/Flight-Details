@@ -2,7 +2,7 @@ const dbconfig = {
   development: {
     username: 'root',
     password: 'root',
-    database: 'node_learning2',
+    database: 'flight_details',
     host: '127.0.0.1',
     dialect: 'mysql'
   },

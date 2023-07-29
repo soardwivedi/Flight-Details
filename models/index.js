@@ -4,7 +4,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 import { fileURLToPath } from 'url';
 
 //here database = dbconfig. Note :- When we export something wwith default keword than we
-//can import that required file with any name by using import keword.
+//can import that rewuired file with any name by using import keword.
 
 import database from '../config/config.js';
 
